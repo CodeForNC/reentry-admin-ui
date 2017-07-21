@@ -10,10 +10,12 @@ const authProviders = [
 
 const initializeFirebaseApp = (store) => {
   firebase.initializeApp({
-    apiKey: 'AIzaSyAEwpGQsTfOhwxUXaLX43FNAPA7BfL4SQ0',
-    authDomain: 'simplicityii-878be.firebaseapp.com',
-    databaseURL: 'https://simplicityii-878be.firebaseio.com',
-    storageBucket: 'simplicityii-878be.appspot.com',
+    apiKey: 'AIzaSyDdchgWIYicTvZEoEr0DZSSxardZV_19v4',
+    authDomain: 'nc-reentry-hub.firebaseapp.com',
+    databaseURL: 'https://nc-reentry-hub.firebaseio.com',
+    projectId: 'nc-reentry-hub',
+    storageBucket: 'nc-reentry-hub.appspot.com',
+    messagingSenderId: '655014653173'
   });
 
   firebase.auth().onAuthStateChanged((user) => {

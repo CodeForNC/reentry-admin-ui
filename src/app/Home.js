@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReentryAdminHome from './ReentryAdminHome';
 import { loginLinkClicked } from '../utilities/auth/authActions';
 
-const isValidUser(email) {
+function isValidUser(email) {
   // Need to look up in our user list and verify
   return true;
 }
