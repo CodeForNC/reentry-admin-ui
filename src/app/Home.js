@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import ReentryAdminHome from './ReentryAdminHome';
 import { loginLinkClicked } from '../utilities/auth/authActions';
 
+
+
 function isValidUser(email) {
   // Need to look up in our user list and verify
   return true;
@@ -22,6 +24,7 @@ const Homepage = props => (
     {props.user.loggedIn && isValidUser(props.user.email) &&
       <ReentryAdminHome {...props} />
     }
+  
   </div>
 );
 
@@ -36,5 +39,6 @@ const mapDispatchToProps = dispatch => (
     dispatch,
   }
 );
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
