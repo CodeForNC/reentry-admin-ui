@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReentryAdminHome from './ReentryAdminHome';
 import { loginLinkClicked } from '../utilities/auth/authActions';
+import Adminv2ContainerComponent from './adminv2/Adminv2ContainerComponent';
 
 
 
@@ -24,7 +25,7 @@ const Homepage = props => (
     {props.user.loggedIn && isValidUser(props.user.email) &&
       <ReentryAdminHome {...props} />
     }
-  
+  <Adminv2ContainerComponent />
   </div>
 );
 
