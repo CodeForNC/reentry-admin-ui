@@ -29,7 +29,7 @@ class CreateForm extends React.Component {
 	handleChangePairs(event) {
 		this.setState({ pairs: event.target.value });
 	}
-//Handling the submit event
+//Handling the submit event with the handleSubmit method and callback props with the name, specifics and pairs that the user has entered into the form
 	handleSubmit(event) {
 		event.preventDefault(); // calling prevent default to prevent the form's default submit action which would cause the page to reload
 //Again avoiding using this.state for every value input with es6 desructured const
@@ -52,10 +52,11 @@ resetForm() {
 	});
 }
 	render () {
-		//Avoiding using some more of this.state with es6 desructured cont
+		//Avoiding using some more of this.state with an es6 desructuring const
 		const { name, specifics, pairs, created} = this.state;
 		return (
-		<form onSubmit={this.handleSubmit.bind(this)}>
+//onSubmit handler method added to the form componant for well you know.
+		<form onSubmit={this.handleSubmit.bind(this)}> 
 		{ created && <div className='alert alert-success'>Your resource was created</div> }
 		 <div>
 		 <label htmlFor='name'>Resource name:</label>
@@ -64,7 +65,7 @@ resetForm() {
 		 className='form-control'
 		 id='name'
 		 placeholder='Enter resource name'
-		 value={name}
+		 value={name} //value prop with appropriate propert of the state
 		 onChange={this.handleChangeName.bind(this)}
 		 ref='name' //this ref is here to make the cursor refocus on the name input field after the form has been submitted
 
@@ -79,7 +80,7 @@ resetForm() {
 		 id='specifics'
 		 rows='5'
 		 placeholder='Enter resource specifics'
-		 value={specifics}
+		 value={specifics} //value prop with appropriate propert of the state
 		 onChange={this.handleChangeSpecifics.bind(this)}
 
 		 />
@@ -93,7 +94,7 @@ resetForm() {
 		 rows='10'
 		 id='pairs'
 		 placeholder='Enter resource pairs'
-		 value={pairs}
+		 value={pairs} //value prop with appropriate propert of the state
 		 onChange={this.handleChangePairs.bind(this)}
 		 />
 		 </div>
