@@ -8,7 +8,7 @@ import Adminv2ContainerComponent from './adminv2/Adminv2ContainerComponent';
 
 const MainHome = (props) => {
   if (props.data.loading) { // eslint-disable-line react/prop-types
-    return <Adminv2ContainerComponent />;
+    return;
   }
   if (props.data.error) { // eslint-disable-line react/prop-types
     return <p>{props.data.error.message}</p>; // eslint-disable-line react/prop-types

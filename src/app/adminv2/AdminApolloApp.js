@@ -10,7 +10,7 @@ import  { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apo
 // this client is going to describe the network layer between the application and the graphql server
 const client = new ApolloClient({
 	networkInterface: createNetworkInterface({
-		uri: 'http://pokeapi-graphiql.herokuapp.com/'
+		uri: 'http://localhost:3030/graphql'
 	})
 
 });
@@ -18,7 +18,7 @@ const client = new ApolloClient({
 //3
 
 
-export default class Adminv2ContainerComponent extends Component {
+export default class AdminApolloApp extends Component {
 	render() {
 
 		return <ApolloProvider client={client}>
