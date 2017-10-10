@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ResourceList from './ResourceList';
 import ResourceDetail from './ResourceDetail';
-import CreateForm from './CreateForm';
+import CreateEditForm from './CreateEditForm';
 import SearchBox from './SearchBox';
+
 
 
 const LOCAL_STORAGE_KEY = 'resources';
@@ -29,12 +30,16 @@ const localStorageResources = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 	}
 //This is a method with a booolean to show the form...is the button's onClick handler
  showCreate() {
- 	this.setState({ showCreate: true });
+ 	this.setState({ 
+ 		showCreate: true,
+ 		selectedResource: null 
+
+ 	});
  }
 
  //This is the event handler for the onSubmit prop that handles the creation on the new resource
  //This handleCreateResource method adds the name, specifics and resource to the resources array in the app state using the arrays concat method
- handleCreateResource(name, specifics, pairs) {
+ handleResourceCreated(name, specifics, pairs) {
  	
 //using the concat method of this.state.resources to not mutate the state directly but to create a new array with the resource object added to the end
 
@@ -47,6 +52,27 @@ const localStorageResources = window.localStorage.getItem(LOCAL_STORAGE_KEY);
  	});
 
  this.updateResources(newResources); //calling updateResources method being called  handleCreateResource
+ }
+
+ handleResourceEdited(name, specifics, pairs) {
+ 	const { resources, selectedResource } = this.state;
+//Object.assign so the rources can be edited immutably.
+//The first argument to Object.assign is always an empty obect to make sure we are editing immutably and the second here is the object we want to edit.
+//...the final parameter is an object containing the keys and values we want to update.
+ 	const editedResource = Object.assign({}, selectedResource, {
+ 		name,
+ 		specifics,
+ 		pairs
+ 	});
+//we use the array's map method to swap out the object with the newly edited object with a ternary
+//... to tell the function to return the original resource or "selectedResource" in this case if unchanged or the "editedResource" if edited
+//...and create the new array "newResources"
+ 	const newResources = resources.map(resource =>
+ 		resource === selectedResource ? editedResource : resource
+ 		);
+//updating the state and local storage with the new edited arrays
+ 	this.updateResources(newResources);
+ 	this.handleSelectResource(editedResource);
  }
 
  handleSelectResource(resource) {
@@ -88,6 +114,11 @@ updateResources(newResources) {
 	window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newResources));
 }	
 	
+handleEditResource() {
+	this.setState({
+		showCreate: true
+	});
+}
 
 
 
@@ -101,7 +132,7 @@ updateResources(newResources) {
 		return (
 			
 			<div className='container'>
-			<h1>Hi, I'm the Adminv2ContainerComponent Component</h1>
+			<h1>Hi, I'm the Adminv2ContainerComponent Component.</h1>
 			
 			
 			 <div className='row'>
@@ -126,9 +157,13 @@ updateResources(newResources) {
 			   </div>
 			   <div className='col-xs-8'>
 			  { showCreate 
-			  	? <CreateForm onSubmit={this.handleCreateResource.bind(this)}/> 
-			  	: <ResourceDetail resource={selectedResource} //Passing the selected resource into the ResourceDetail component.
+			  	? <CreateEditForm onCreate={this.handleResourceCreated.bind(this)}
+			  	                  onEdit={this.handleResourceEdited.bind(this)}
+			  					  resource={selectedResource}
+			  					  /> 
+			  	: <ResourceDetail resource={selectedResource} //Passing the selected resource into the ResourceDetail component...is not bound to "this", see why?
 			  	                  onDelete={this.handleDeleteResource.bind(this)} 
+			  	                  onEdit={this.handleEditResource.bind(this)} //passing the onEdit prop and make it call the new handleEditResource method
 			  	                  /> } 
 			   </div>
 			
